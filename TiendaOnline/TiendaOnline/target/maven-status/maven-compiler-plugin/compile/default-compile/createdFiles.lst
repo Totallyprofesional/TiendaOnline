@@ -1,0 +1,9 @@
+cl\duoc\tiendaonline\managers\DiscountManager.class
+cl\duoc\tiendaonline\managers\descuentos\DescuentoA.class
+cl\duoc\tiendaonline\TiendaOnline.class
+cl\duoc\tiendaonline\Menu.class
+cl\duoc\tiendaonline\managers\Balance.class
+cl\duoc\tiendaonline\managers\DiscountManager$Holder.class
+cl\duoc\tiendaonline\managers\InterfaceManager.class
+cl\duoc\tiendaonline\managers\descuentos\DescuentoN.class
+cl\duoc\tiendaonline\models\Articulos.class
