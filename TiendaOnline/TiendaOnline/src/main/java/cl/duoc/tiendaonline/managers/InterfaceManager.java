@@ -8,24 +8,23 @@ import cl.duoc.tiendaonline.managers.descuentos.DescuentoA;
 import cl.duoc.tiendaonline.managers.descuentos.DescuentoN;
 
 /**
- *
+ * 
  * @author Home
  */
 public class InterfaceManager {
-    
     private final DescuentoA adidas = new DescuentoA(); 
     private final DescuentoN nike = new DescuentoN();
 
-    public void mostrarDescuentos() { 
+    public void mostrarDescuentos(int totalAdidas, int totalNike) { 
+        totalAdidas = adidas.run(totalAdidas);  
+        totalNike = nike.run(totalNike);      
+        
         DiscountManager dm = DiscountManager.getInstancia();
-
-        String descuentoA = dm.get("A");
-        String descuentoN = dm.get("N");
         
         System.out.println("");
         System.out.println("=== Descuentos aplicados ===");
-        System.out.println("Descuento A (Adidas): " + descuentoA);
-        System.out.println("Descuento N (Nike): " + descuentoN);
+        System.out.println("Descuento A (Adidas): " + dm.get("A"));
+        System.out.println("Descuento N (Nike): " + dm.get("N"));
         System.out.println("============================");
     }
 }

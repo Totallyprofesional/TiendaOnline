@@ -9,13 +9,13 @@ import cl.duoc.tiendaonline.managers.InterfaceManager;
 import cl.duoc.tiendaonline.managers.descuentos.DescuentoA;
 import cl.duoc.tiendaonline.managers.descuentos.DescuentoN;
 import cl.duoc.tiendaonline.models.Articulos;
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 import java.util.Scanner;
  
 /**
  *
- * @author Pablo  
+ * @author Pablo    
  */   
 
 public class Menu { 
@@ -23,6 +23,9 @@ public class Menu {
     private List<Articulos> zapatillas = new ArrayList<>();
     private DiscountManager manager; 
     private Balance balance;
+    private int totalAdidas = 0;
+    private int totalNike = 0;
+
 
     public Menu(DiscountManager manager, Balance balance) {
         this.manager = manager;
@@ -53,7 +56,7 @@ public class Menu {
                     ComprarArticulos();
                     break; 
                 case 3:
-                    VerDescuentos();
+                    VerDescuentos(totalAdidas, totalNike);
                     break;
                 case 4:
                     BalanceTotal();
@@ -93,30 +96,32 @@ public class Menu {
             .filter(a -> a.getNumero() == elegir)
             .findFirst()
             .orElse(null); 
-        
+         
         if (valor == null) {
             System.out.println("Artículo no encontrado.");
             return;
         }  
         
         int total = valor.getPrecio();  
+        InterfaceManager im = new InterfaceManager();
         
-        if (elegir == 2|| elegir == 10){
-                DescuentoA descuentoA = new DescuentoA();
-                total = descuentoA.run(total);
-            } else if (elegir == 1 || elegir == 3){
-                DescuentoN descuentoN = new DescuentoN();
-                total = descuentoN.run(total);
-            }  
+        if (elegir == 2 || elegir == 10){
+            DescuentoA descuentoA = new DescuentoA();
+            total = descuentoA.run(total);
+            totalAdidas += total;          
+        } else if (elegir == 1 || elegir == 3){
+            DescuentoN descuentoN = new DescuentoN(); 
+            totalNike += total;    
+        }  
         
         balance.SumarBalance(total);
         
         System.out.println("Precio final: " + total);
-    }
+    } 
    
-    public void VerDescuentos (){ 
+    public void VerDescuentos (int totalAdidas, int totalNike){ 
         InterfaceManager im = new InterfaceManager();     
-        im.mostrarDescuentos();
+        im.mostrarDescuentos(totalAdidas, totalNike); 
     }
      
     public void BalanceTotal (){ 

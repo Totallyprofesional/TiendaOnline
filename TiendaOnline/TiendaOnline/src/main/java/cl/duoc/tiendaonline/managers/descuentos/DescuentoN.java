@@ -13,12 +13,12 @@ import cl.duoc.tiendaonline.managers.DiscountManager;
 public class DescuentoN {
     private final DiscountManager descuento = DiscountManager.getInstancia();
 
-    public int run(int precio) {
+    public int run(int total) {
         
-        precio = (int)(precio * 0.8);
+        total = (int)(total * 0.8);
         descuento.set("N", "10%");
         
-        return precio;
+        return total;
     }
 }
     
