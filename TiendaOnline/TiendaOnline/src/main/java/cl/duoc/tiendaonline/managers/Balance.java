@@ -15,7 +15,7 @@ public class Balance {
         this.balance = balance;
     }
 
-    public void SumarBalance(int total){
+    public void sumarBalance(int total){
         this.balance += total;
     }
 

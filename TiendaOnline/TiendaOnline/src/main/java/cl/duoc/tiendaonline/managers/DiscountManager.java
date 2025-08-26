@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package cl.duoc.tiendaonline.managers;
-
+ 
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +11,8 @@ import java.util.Map;
  * 
  * @author Home
  */
-public final class DiscountManager {  
+
+public final class DiscountManager {   
     
     private final Map<String, String> descuentos = new HashMap<>();
 

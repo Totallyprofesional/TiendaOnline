@@ -17,7 +17,7 @@ public class TiendaOnline {
 
     public static void main(String[] args) {
         Menu menu = new Menu(manager, balance); 
-        menu.MenuTienda();
+        menu.menuTienda();
     }
     
 } 
