@@ -4,18 +4,20 @@
 
 package cl.duoc.tiendaonline;
 
-import cl.duoc.tiendaonline.managers.DiscountManager;
+import cl.duoc.tiendaonline.managers.Balance;
+import cl.duoc.tiendaonline.singleton.DiscountManager;
 
 /**
  *
- * @author Home 
+ * @author Home  
  */ 
 public class TiendaOnline {
     public static DiscountManager manager; 
+    public static Balance balance; 
 
     public static void main(String[] args) {
-        Menu menu = new Menu(manager); 
-        menu.MenuTienda();
-    }
-    
+        Menu menu = new Menu(manager, balance); 
+        menu.menuTienda();
+    } 
+     
 } 

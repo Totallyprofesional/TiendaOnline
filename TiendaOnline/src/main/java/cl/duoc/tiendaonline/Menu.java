@@ -3,57 +3,68 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package cl.duoc.tiendaonline;
+import cl.duoc.tiendaonline.singleton.DescuentoA;
 import cl.duoc.tiendaonline.managers.Balance;
-import cl.duoc.tiendaonline.managers.DiscountManager;
-import cl.duoc.tiendaonline.managers.InterfaceManager;
-import cl.duoc.tiendaonline.managers.descuentos.DescuentoA;
-import cl.duoc.tiendaonline.managers.descuentos.DescuentoN;
-import cl.duoc.tiendaonline.models.Articulos;
-import java.util.ArrayList;
+import cl.duoc.tiendaonline.view.InterfazDescuentos;
+import cl.duoc.tiendaonline.singleton.DiscountManager;
+import cl.duoc.tiendaonline.manager.DescuentoA;
+import cl.duoc.tiendaonline.singleton.DescuentoN;
+import cl.duoc.tiendaonline.model.Productos;
+import java.util.ArrayList; 
 import java.util.List;
 import java.util.Scanner;
  
 /**
  *
- * @author Pablo  
+ * @author Pablo    
  */   
 
 public class Menu { 
     private Scanner sc = new Scanner(System.in);
-    private List<Articulos> zapatillas = new ArrayList<>();
+    private List<Productos> zapatillas = new ArrayList<>();
     private DiscountManager manager; 
+    private Balance balance;
+    private int totalAdidas = 0;
+    private int totalNike = 0; 
 
-    public Menu(DiscountManager manager) {
+
+    public Menu(DiscountManager manager, Balance balance) {
         this.manager = manager;
+        this.balance = new Balance(0); 
+        this.zapatillas = Productos.mostrarSneakers(); 
     }
 
-    public void MenuTienda (){
+    public void menuTienda (){
         int opcion = 0;
 
         do { 
             System.out.println("\n Bienvenido al Menu de Tienda Online");
-            System.out.println("1. Ver artículos");
+            System.out.println("1. Ver productos");
+            System.out.println("1. Ingresar usuario");
+            System.out.println("1. Registrar usuario"); 
+            System.out.println("1. Ver carrito");
+            System.out.println("1. Realizar pedido");
             System.out.println("2. Comprar artículos");
             System.out.println("3. Ver descuentos");
             System.out.println("4. Total fiscal"); 
             System.out.println("5. Salir");
             System.out.print("Seleccione una opcion: "); 
-
+ 
             opcion = sc.nextInt();
             sc.nextLine(); 
 
             switch (opcion) { 
                 case 1:
-                    VerArticulos();
-                    break;
+                    verArticulos();
+                    break; 
                 case 2: 
-                    ComprarArticulos();
+                    comprarArticulos();
                     break; 
                 case 3:
-                    VerDescuentos();
+                    verDescuentos(totalAdidas, totalNike);
                     break;
                 case 4:
-                    BalanceTotal();
+                    balanceTotal();
                     break;
                 case 5:
                     System.out.println("Saliendo del sistema...");
@@ -62,17 +73,17 @@ public class Menu {
                     System.out.println("Por favor ingrese una opcion valida.");
                     break;
             }
-        } while (opcion != 6);
+        } while (opcion != 5);
        
-    }
+    } 
     
-    public void VerArticulos (){ 
+    public void verArticulos (){ 
         System.out.println("\n Lista de Artículos:");
         System.out.println("");
 
-        List<Articulos> zapatillas = Articulos.MostrarSneakers();
-        for (Articulos articulos : zapatillas) {
-            System.out.println(articulos.MostrarArticulo());
+        List<Productos> zapatillas = Productos.mostrarSneakers();
+        for (Productos articulos : zapatillas) {
+            System.out.println(articulos.mostrarArticulo());
         } 
         
         System.out.println(""); 
@@ -80,42 +91,45 @@ public class Menu {
         sc.nextLine();                    
     }
     
-    public void ComprarArticulos (){   
+    public void comprarArticulos (){   
         
-        Articulos.ElegirSneakers();
+        verArticulos();
         System.out.println("Seleccione artículo (1-10)");
         int elegir = sc.nextInt();
-        
-        Articulos valor = zapatillas.stream()
+         
+        Productos valor = zapatillas.stream()
             .filter(a -> a.getNumero() == elegir)
             .findFirst()
-            .orElse(null);
+            .orElse(null); 
+          
+        if (valor == null) { 
+            System.out.println("Artículo no encontrado.");
+            return;
+        }  
         
-        int precio = valor.getPrecio(); 
+        int total = valor.getPrecio();  
+        InterfazDescuentos ds = new InterfazDescuentos();
         
-        do{
-            if (elegir == 2|| elegir == 10){
-                DescuentoA descuentoA = new DescuentoA();
-                precio = descuentoA.run(precio);
-            } else if (elegir == 1 || elegir == 3){
-                DescuentoN descuentoN = new DescuentoN();
-                precio = descuentoN.run(precio);
-            } 
-        } while (elegir >= 10);    
- 
-        Balance balance = new Balance(0, precio);
-        balance.SumarBalance();
+        if (elegir == 2 || elegir == 10){
+            DescuentoA descuentoA = new DescuentoA();
+            total = descuentoA.run(total);
+            totalAdidas += total;          
+        } else if (elegir == 1 || elegir == 3){
+            DescuentoN descuentoN = new DescuentoN(); 
+            totalNike += total;    
+        }   
         
-        System.out.println("Precio final: " + precio);
-    }
+        balance.sumarBalance(total);
+        
+        System.out.println("Precio final: " + total);
+    } 
    
-    public void VerDescuentos (){ 
-        InterfaceManager im = new InterfaceManager();     
-        im.mostrarDescuentos();
+    public void verDescuentos (int totalAdidas, int totalNike){ 
+        InterfazDescuentos ds = new InterfazDescuentos();     
+        ds.mostrarDescuentos(totalAdidas, totalNike); 
     }
      
-    public void BalanceTotal (){
-        Balance balance = Balance.getInstancia();
+    public void balanceTotal (){ 
         System.out.println("Balance total: " + balance.getBalance());
     }
     
