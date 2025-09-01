@@ -11,17 +11,17 @@ public class PedidosController {
     private final Pedidos pedidos; 
  
         public PedidosController(Pedidos pedidos) {
-            this.pedidos = pedidos;
-        } 
+            this.pedidos = pedidos; 
+        }  
 	
 	public void add(Productos productos, String nombreCompleto, String mail, int cantidad) {
             
             new AddPedidoCommand(pedidos, productos, nombreCompleto, mail, cantidad).ejecutar();
         }
 
-	public void remove(int numero, String mail) {
+	public void remove(String mail) {
 
-		new RemovePedidoCommand(pedidos, numero, mail).ejecutar();
+		new RemovePedidoCommand(pedidos, mail).ejecutar();
 	}
 
         public Pedidos getPedidos() {   

@@ -29,9 +29,9 @@ public class Pedidos {
             });  
 	}  
 
-	public void remove(int numero, String mail) { 
+	public void remove(String mail) { 
 
-		pedidos.remove(numero + "|" + mail.toLowerCase());
+		pedidos.remove(mail.toLowerCase());
 	} 
 
 	public double subtotal() {  
