@@ -7,21 +7,21 @@ import java.util.LinkedHashMap;
 import java.util.Map; 
  
 public class Pedidos { 
-    private final Map<String, Usuarios> pedido = new LinkedHashMap<>();
+    private final Map<String, Usuarios> pedidos = new LinkedHashMap<>();
 
 	private String key(Productos p, String mail) {
  
 	    return p.getNumero() + "|" + mail.toLowerCase();
 	}
   
-	public Collection<Usuarios> getPedido() {  
+	public Collection<Usuarios> getPedidos() {  
 
-	    return pedido.values(); 
+	    return pedidos.values(); 
 	}
   
 	public void add(Productos p, String nombreCompleto, String mail, int cantidad) { 
 
-	    pedido.compute(key(p, mail), (k, usuario) -> {
+	    pedidos.compute(key(p, mail), (k, usuario) -> {
 	        if (usuario == null)
 	            return new Usuarios(p, nombreCompleto, mail, cantidad);
 	            usuario.setCantidad(usuario.getCantidad() + cantidad);
@@ -31,14 +31,14 @@ public class Pedidos {
 
 	public void remove(int numero, String mail) { 
 
-		pedido.remove(numero + "|" + mail.toLowerCase());
+		pedidos.remove(numero + "|" + mail.toLowerCase());
 	} 
 
 	public double subtotal() {  
  
 		double sum = 0;  
 
-		for (Usuarios user : pedido.values())
+		for (Usuarios user : pedidos.values())
 			sum += user.getProductos().getPrecio() * user.getCantidad();
 
 		return sum;
@@ -49,7 +49,7 @@ public class Pedidos {
 		DiscountManager dm = DiscountManager.getInstancia();
 		double sum = 0;
 
-		for (Usuarios user : pedido.values()) {
+		for (Usuarios user : pedidos.values()) {
 
 			double unidad = user.getProductos().getPrecio();
 			double precioFinal = dm.aplicar(unidad, user.getProductos(), user.getMail());

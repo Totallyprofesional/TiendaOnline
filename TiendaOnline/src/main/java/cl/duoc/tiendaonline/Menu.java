@@ -1,25 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package cl.duoc.tiendaonline;
-import cl.duoc.tiendaonline.singleton.DescuentoA;
-import cl.duoc.tiendaonline.managers.Balance;
-import cl.duoc.tiendaonline.view.InterfazDescuentos;
-import cl.duoc.tiendaonline.singleton.DiscountManager;
-import cl.duoc.tiendaonline.manager.DescuentoA;
-import cl.duoc.tiendaonline.singleton.DescuentoN;
-import cl.duoc.tiendaonline.model.Productos;
+
 import java.util.ArrayList; 
 import java.util.List;
 import java.util.Scanner;
  
-/**
- *
- * @author Pablo    
- */   
-
-public class Menu { 
+public class Menu {   
     private Scanner sc = new Scanner(System.in);
     private List<Productos> zapatillas = new ArrayList<>();
     private DiscountManager manager; 

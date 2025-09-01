@@ -10,7 +10,7 @@ public class ProductosView {
 
     public ProductosView(ProductosController controller) {
 	this.controller = controller;
-    }
+    } 
    
     public void mostrarProducto() {
 	System.out.println("\n Productos");

@@ -8,24 +8,24 @@ import cl.duoc.tiendaonline.model.Productos;
 
 public class PedidosController {   
     
-    private final Pedidos pedido;
+    private final Pedidos pedidos; 
  
-        public PedidosController(Pedidos pedido) {
-            this.pedido = pedido;
+        public PedidosController(Pedidos pedidos) {
+            this.pedidos = pedidos;
         } 
 	
 	public void add(Productos productos, String nombreCompleto, String mail, int cantidad) {
             
-            new AddPedidoCommand(pedido, productos, nombreCompleto, mail, cantidad).ejecutar();
+            new AddPedidoCommand(pedidos, productos, nombreCompleto, mail, cantidad).ejecutar();
         }
 
 	public void remove(int numero, String mail) {
 
-		new RemovePedidoCommand(pedido, numero, mail).ejecutar();
+		new RemovePedidoCommand(pedidos, numero, mail).ejecutar();
 	}
 
-        public Pedidos getPedido() {   
-            return pedido;
+        public Pedidos getPedidos() {   
+            return pedidos;
         }
 
 }

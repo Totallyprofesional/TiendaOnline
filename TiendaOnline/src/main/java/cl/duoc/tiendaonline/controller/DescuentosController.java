@@ -7,7 +7,7 @@ import cl.duoc.tiendaonline.decorator.DescuentoNike;
 import cl.duoc.tiendaonline.decorator.PrecioBase;
 import cl.duoc.tiendaonline.decorator.PrecioComponent;
    
-public class DescuentosController {  
+public class DescuentosController {   
     public void setProceso1(boolean descuentos) {
         PrecioComponent pipe = new PrecioBase();
  
